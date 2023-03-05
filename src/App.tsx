@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllMenus } from './api/lunchMenuDB';
+import { getAllMenus } from './apis/lunchMenu';
 
 const App = () => {
 	let hello: any = 'ing';
