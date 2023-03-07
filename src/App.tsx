@@ -1,10 +1,13 @@
 import React from 'react';
-import { getAllMenus } from './apis/lunchMenu';
+import { getAllMenus } from './apis/lunchMenuAPIs';
+import LunchMenuContainer from './containers/LunchMenuContainer';
 
 const App = () => {
-	let hello: any = 'ing';
-
-	return <div>{hello}</div>;
+	return (
+		<div>
+			<LunchMenuContainer />
+		</div>
+	);
 };
 
 export default App;

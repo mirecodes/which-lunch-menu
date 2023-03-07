@@ -7,6 +7,8 @@ react-redux
 @types/react-redux
 typesafe-actions
 
+@reduxjs/toolkit
+
 ## redux-middlewares
 
 redux-logger
