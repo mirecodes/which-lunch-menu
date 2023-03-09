@@ -1,9 +1,9 @@
 
 import { createReducer } from "typesafe-actions";
 import { LunchMenuAction, LunchMenuState } from "./models";
-import { ADD_MENU, DELETE_MENU, GET_ALL_MENUS, GET_MENUS_BY_CONSTRAINTS, GET_ONE_MENU_BY_CONSTRAINTS, MODIFY_MENU, REQUEST_FAILURE, REQUEST_SUCCESS } from "./actions";
+import { ADD_MENU, DELETE_MENU, GET_ALL_MENUS, GET_MENUS, GET_ONE_MENU, MODIFY_MENU, REQUEST_FAILURE, REQUEST_SUCCESS } from "./actions";
 
-// Reducer
+// Initial State
 const initialState: LunchMenuState = {
     lunchMenuState: {
         loading: false,
@@ -12,6 +12,7 @@ const initialState: LunchMenuState = {
     }
 }
 
+// Reducer
 const controlMenusReducer = createReducer<LunchMenuState, LunchMenuAction>(initialState, {
     [GET_ALL_MENUS]: state => ({
         ...state,
@@ -21,7 +22,7 @@ const controlMenusReducer = createReducer<LunchMenuState, LunchMenuAction>(initi
             data: [],
         }
     }),
-    [GET_ONE_MENU_BY_CONSTRAINTS]: state => ({
+    [GET_ONE_MENU]: state => ({
         ...state,
         lunchMenuState: {
             loading: true,
@@ -29,7 +30,7 @@ const controlMenusReducer = createReducer<LunchMenuState, LunchMenuAction>(initi
             data: [],
         }
     }),
-    [GET_MENUS_BY_CONSTRAINTS]: state => ({
+    [GET_MENUS]: state => ({
         ...state,
         lunchMenuState: {
             loading: true,

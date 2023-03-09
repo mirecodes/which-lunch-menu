@@ -1,4 +1,6 @@
-type TLunchMenu = {
+// Lunch Menu Types
+
+export type TLunchMenu = {
     idx: number;
     name: string;
     category: string;
@@ -8,4 +10,8 @@ type TLunchMenu = {
 
 export type TSubLunchMenu = Partial<TLunchMenu>
 
-export default TLunchMenu;
+// Internal Data Types
+
+export type TPublicData = {
+    idx: number;
+}

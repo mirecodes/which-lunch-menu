@@ -1,11 +1,14 @@
 import { ThunkAction } from "redux-thunk";
-import TLunchMenu, { TSubLunchMenu } from "../../models/TLunchMenu";
+import { TSubLunchMenu } from "../../models/LunchMenuDB";
 import { RootState } from "..";
 import { LunchMenuAction } from "./models";
-import { addMenuAsync, deleteMenuAsync, getAllMenusAsync, getMenusByConstraintsAsync, getOneMenuByConstraintsAsync, modifyMenuAsync } from "./actions";
-import { addMenu, deleteMenu, getAllMenus, getOneMenuByConstraints, modifyMenu } from "../../apis/lunchMenuAPIs";
+import { addMenuAsync, deleteMenuAsync, getAllMenusAsync, getMenusAsync, getOneMenuAsync, modifyMenuAsync } from "./actions";
+import { addMenu, deleteMenu, getAllMenus, getOneMenu, modifyMenu } from "../../apis/lunchMenuAPIs";
+import { TLunchMenu } from "../../models/LunchMenuDB";
 
 // Thunks
+
+
 export function getAllMenusThunk(): ThunkAction<void, RootState, null, LunchMenuAction> {
     return async dispatch => {
         const { request, success, failure } = getAllMenusAsync;
@@ -20,12 +23,12 @@ export function getAllMenusThunk(): ThunkAction<void, RootState, null, LunchMenu
     }
 }
 
-export function getOneMenuByConstraintsThunk<T extends TSubLunchMenu>(constraints: T): ThunkAction<void, RootState, null, LunchMenuAction> {
+export function getOneMenuThunk<T extends TSubLunchMenu>(constraints: T): ThunkAction<void, RootState, null, LunchMenuAction> {
     return async dispatch => {
-        const { request, success, failure } = getOneMenuByConstraintsAsync;
+        const { request, success, failure } = getOneMenuAsync;
         dispatch(request(constraints));
         try {
-            const lunchMenus = await getOneMenuByConstraints(constraints);
+            const lunchMenus = await getOneMenu(constraints);
             dispatch(success(lunchMenus));
         } catch (err) {
             if (err instanceof Error) { dispatch(failure(err)); }
@@ -34,12 +37,12 @@ export function getOneMenuByConstraintsThunk<T extends TSubLunchMenu>(constraint
     }
 }
 
-export function getMenusByConstraintsThunk<T extends TSubLunchMenu>(constraints: T): ThunkAction<void, RootState, null, LunchMenuAction> {
+export function getMenusThunk<T extends TSubLunchMenu>(constraints: T): ThunkAction<void, RootState, null, LunchMenuAction> {
     return async dispatch => {
-        const { request, success, failure } = getMenusByConstraintsAsync;
+        const { request, success, failure } = getMenusAsync;
         dispatch(request(constraints));
         try {
-            const lunchMenus = await getOneMenuByConstraints(constraints);
+            const lunchMenus = await getOneMenu(constraints);
             dispatch(success(lunchMenus));
         } catch (err) {
             if (err instanceof Error) { dispatch(failure(err)); }
@@ -47,6 +50,7 @@ export function getMenusByConstraintsThunk<T extends TSubLunchMenu>(constraints:
         }
     }
 }
+
 
 export function addMenuThunk(lunchMenu: TLunchMenu): ThunkAction<void, RootState, null, LunchMenuAction> {
     return async dispatch => {

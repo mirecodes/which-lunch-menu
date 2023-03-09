@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react';
-import TLunchMenu, { TSubLunchMenu } from '../models/TLunchMenu';
+import { TLunchMenu, TSubLunchMenu } from '../models/LunchMenuDB';
 type TOnFunctions = {
 	onGetAllMenus: () => void;
-	onGetOneMenuByConstraints: (constraints: TSubLunchMenu) => void;
-	onGetMenusByConstraints: (constraints: TSubLunchMenu) => void;
+	onGetOneMenu: (constraints: TSubLunchMenu) => void;
+	onGetMenus: (constraints: TSubLunchMenu) => void;
 	onAddMenu: (lunchMenu: TLunchMenu) => void;
 	onModifyMenu: (constraints: TSubLunchMenu, lunchMenu: TLunchMenu) => void;
 	onDeleteMenu: (constraints: TSubLunchMenu) => void;
@@ -12,7 +12,7 @@ type TOnFunctions = {
 type LunchMenuListProps = { lunchMenuList: TLunchMenu[]; onFunctions: TOnFunctions };
 
 const LunchMenuList = ({ lunchMenuList, onFunctions }: LunchMenuListProps) => {
-	const { onGetAllMenus, onGetOneMenuByConstraints, onGetMenusByConstraints, onAddMenu, onModifyMenu, onDeleteMenu } = onFunctions;
+	const { onGetAllMenus, onGetOneMenu, onGetMenus, onAddMenu, onModifyMenu, onDeleteMenu } = onFunctions;
 
 	const [inputState, setInput] = useState<TLunchMenu>({ idx: 3, name: '', category: '', store: '', price: 0 });
 
@@ -47,11 +47,11 @@ const LunchMenuList = ({ lunchMenuList, onFunctions }: LunchMenuListProps) => {
 
 	const onSubmit = () => {
 		const newInputState = {
-			idx: inputState.idx + 1,
+			idx: parseInt(''),
 			name: '',
 			category: '',
 			store: '',
-			price: 0,
+			price: parseInt(''),
 		};
 		setInput(newInputState);
 	};
@@ -64,11 +64,11 @@ const LunchMenuList = ({ lunchMenuList, onFunctions }: LunchMenuListProps) => {
 				</div>
 			))}
 			<div>
-				<input name='idx' type='number' value={inputState.idx} onChange={onChange}></input>
-				<input name='name' type='string' value={inputState.name} onChange={onChange}></input>
-				<input name='category' type='string' value={inputState.category} onChange={onChange}></input>
-				<input name='store' type='string' value={inputState.store} onChange={onChange}></input>
-				<input name='price' type='number' value={inputState.price} onChange={onChange}></input>
+				<input name='idx' type='number' placeholder='idx' value={inputState.idx} onChange={onChange}></input>
+				<input name='name' type='string' placeholder='name' value={inputState.name} onChange={onChange}></input>
+				<input name='category' type='string' placeholder='category' value={inputState.category} onChange={onChange}></input>
+				<input name='store' type='string' placeholder='store' value={inputState.store} onChange={onChange}></input>
+				<input name='price' type='number' placeholder='price' value={inputState.price} onChange={onChange}></input>
 			</div>
 			<div>
 				<button
@@ -80,14 +80,14 @@ const LunchMenuList = ({ lunchMenuList, onFunctions }: LunchMenuListProps) => {
 				</button>
 				<button
 					onClick={() => {
-						onGetOneMenuByConstraints(getInputValues());
+						onGetOneMenu(getInputValues());
 						onSubmit();
 					}}>
 					getOneMenu
 				</button>
 				<button
 					onClick={() => {
-						onGetMenusByConstraints(getInputValues());
+						onGetMenus(getInputValues());
 						onSubmit();
 					}}>
 					getMenus

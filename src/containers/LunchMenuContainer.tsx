@@ -4,15 +4,8 @@ import { RootState } from '../modules';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import LunchMenuList from '../components/LunchMenuList';
-import {
-	getAllMenusThunk,
-	getOneMenuByConstraintsThunk,
-	addMenuThunk,
-	getMenusByConstraintsThunk,
-	modifyMenuThunk,
-	deleteMenuThunk,
-} from '../modules/controlMenus';
-import TLunchMenu, { TSubLunchMenu } from '../models/TLunchMenu';
+import { getAllMenusThunk, getOneMenuThunk, addMenuThunk, getMenusThunk, modifyMenuThunk, deleteMenuThunk } from '../modules/controlMenus';
+import { TLunchMenu, TSubLunchMenu } from '../models/LunchMenuDB';
 
 const LunchMenuContainer = () => {
 	const { data, loading, error } = useSelector((state: RootState) => state.controlMenusReducer.lunchMenuState);
@@ -23,12 +16,12 @@ const LunchMenuContainer = () => {
 		dispatch(getAllMenusThunk());
 	};
 
-	const onGetOneMenuByConstraints = (constraints: TSubLunchMenu) => {
-		dispatch(getOneMenuByConstraintsThunk(constraints));
+	const onGetOneMenu = (constraints: TSubLunchMenu) => {
+		dispatch(getOneMenuThunk(constraints));
 	};
 
-	const onGetMenusByConstraints = (constraints: TSubLunchMenu) => {
-		dispatch(getMenusByConstraintsThunk(constraints));
+	const onGetMenus = (constraints: TSubLunchMenu) => {
+		dispatch(getMenusThunk(constraints));
 	};
 
 	const onAddMenu = (lunchMenu: TLunchMenu) => {
@@ -43,7 +36,7 @@ const LunchMenuContainer = () => {
 		dispatch(deleteMenuThunk(constraints));
 	};
 
-	const onFunctions = { onGetAllMenus, onGetOneMenuByConstraints, onGetMenusByConstraints, onAddMenu, onModifyMenu, onDeleteMenu };
+	const onFunctions = { onGetAllMenus, onGetOneMenu, onGetMenus, onAddMenu, onModifyMenu, onDeleteMenu };
 
 	return (
 		<Fragment>
